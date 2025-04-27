@@ -31,7 +31,60 @@
     <link rel="icon" href="images/test2.png">
 </head>
 <body>
-    
+ <!-- Scripts -->
+<script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+<script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+<script src="js/purecounter.min.js"></script> <!-- Purecounter counter for statistics numbers -->
+<script src="js/scripts.js"></script> <!-- Custom scripts -->
+
+<!-- 加在这里！拦截提交成功，弹提示+跳转 -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault(); // 阻止默认跳转到Formspree默认页面
+
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // 显示简单的成功提示
+            const thankYouMessage = document.createElement('div');
+            thankYouMessage.style.position = 'fixed';
+            thankYouMessage.style.top = '50%';
+            thankYouMessage.style.left = '50%';
+            thankYouMessage.style.transform = 'translate(-50%, -50%)';
+            thankYouMessage.style.backgroundColor = '#4555D2'; // 你的蓝色
+            thankYouMessage.style.color = 'white';
+            thankYouMessage.style.padding = '30px 50px';
+            thankYouMessage.style.borderRadius = '10px';
+            thankYouMessage.style.fontSize = '24px';
+            thankYouMessage.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+            thankYouMessage.style.zIndex = '9999';
+            thankYouMessage.innerText = '✓ Thank you! Message sent successfully!';
+            document.body.appendChild(thankYouMessage);
+
+            // 2秒后跳转回首页
+            setTimeout(function () {
+                window.location.href = 'index.html';
+            }, 2000);
+        } else {
+            alert("There was a problem submitting your form. Please try again.");
+        }
+    });
+});
+</script>
+<!-- 结束新增 -->
+
+</body>
+</html>
+   
     <!-- Navigation -->
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
         <div class="container">
